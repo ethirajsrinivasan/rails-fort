@@ -29,15 +29,7 @@ and in application.css file
 
 ## Usage
 
-Place `<div class="form">` before your form.All `<input>` inside form will be taken in account.
-
-Example
-
-	<div class="form">
-	  <form method="post">
-	    <input type="text">
-	  </form>
-	</div>
+rails-fort will automatically detect all `<input>` inside form
 
 Certain fields:
 
