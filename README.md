@@ -1,6 +1,11 @@
 # Rails::Fort
 
- rails-fort gem gives you modern progress bar for form completion 
+[![Build Status](https://travis-ci.org/ethirajsrinivasan/rails-fort.svg?branch=master)](https://travis-ci.org/ethirajsrinivasan/rails-fort)
+[![Code Climate](https://codeclimate.com/github/ethirajsrinivasan/rails-fort/badges/gpa.svg)](https://codeclimate.com/github/ethirajsrinivasan/rails-fort)
+[![security](https://hakiri.io/github/ethirajsrinivasan/rails-fort/master.svg)](https://hakiri.io/github/ethirajsrinivasan/rails-fort/master)
+
+
+ rails-fort gem gives you modern progress bar for form completion
 
 ## Installation
 
@@ -47,34 +52,34 @@ You can also set default configuration in fort.yml under config folder, example
 	alignment: 'bottom'
 	type: 'solid'
 	value: '#009DFF'
- 
+
 
 Effects:
 
    * Solid
-    
+
       	type: 'solid'
      	value: '#009DFF'
 
    * Gradient
-	   
+
 	   	type: 'gradient'
 	   	value: ["#009DFF", "#47B9FF"]
 
 	   	Note: Only two values can be passed
 
    * Sections
-   
+
    		type: 'sections'
    		value: ["#009DFF", "#4AF2A1", "#FB5229"]
 
    * Flash
-   
+
    		type: 'flash'
    		value: ["#009DFF", "#000", "#6638F0"]
 
    * Merge
-   		
+
    		type: 'merge'
    		value: '#009DFF'
 
