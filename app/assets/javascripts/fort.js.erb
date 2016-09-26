@@ -1,27 +1,27 @@
-//= require rails.fort
+//= require rails.fort.min
 
 $(document).ready(function(){
-    $("form").wrap( "<div class='form'></div>" );
-    $("input[type='hidden']").addClass('ignore');
-    $('input, textarea, select').each(function() {
-        if ($(this).val().length != 0 )
-          $(this).addClass( "ignore" );
-    });
-    <% path_to_file = "#{Rails.root}/config/fort.yml" %>
-    <% if File.exist?(path_to_file) %>
-    	fortconfig = <%= JSON.dump(YAML.load_file(path_to_file)) %>;
-    	if (fortconfig.type == null)
-          fortconfig.type = "solid"    
-        if(fortconfig.value instanceof Array)
-            Fort[fortconfig.type].apply(this,fortconfig.value)
-        else
-            Fort[fortconfig.type](fortconfig.value)
-        Fort.config({
-		    height: fortconfig.height,
-		    duration: fortconfig.duration,
-		    alignment: fortconfig.alignment
-    });
-    <% else %>
-      	Fort.solid("#009DFF");
-	<% end %>  
+  $("form").wrap( "<div class='form'></div>" );
+  $("input[type='hidden']").addClass('ignore');
+  $('input, textarea, select').each(function() {
+    if ($(this).val().length != 0 )
+      $(this).addClass( "ignore" );
+  });
+  <% path_to_file = "#{Rails.root}/config/fort.yml" %>
+  <% if File.exist?(path_to_file) %>
+    fortconfig = <%= JSON.dump(YAML.load_file(path_to_file)) %>;
+    if (fortconfig.type == null)
+        fortconfig.type = "solid"
+      if(fortconfig.value instanceof Array)
+        Fort[fortconfig.type].apply(this,fortconfig.value)
+      else
+        Fort[fortconfig.type](fortconfig.value)
+      Fort.config({
+        height: fortconfig.height,
+        duration: fortconfig.duration,
+        alignment: fortconfig.alignment
+      });
+  <% else %>
+    Fort.solid("#009DFF");
+  <% end %>
 });
