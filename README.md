@@ -25,12 +25,7 @@ Or install it yourself as:
 
 To use this gem add this require statement to your application.js file:
 
-	//= require fort
-
-and in application.css file
-
-	*= require fort
-
+	//= require rails_fort
 
 ## Usage
 
