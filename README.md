@@ -2,9 +2,14 @@
 
 Modern progress bar for form completion
 
+## Requirements
+
+- Ruby >= 2.7
+- Rails >= 4.2
+
 ## Information
 
- rails-fort gem gives you modern progress bar for form completion
+rails-fort gem gives you modern progress bar for form completion
 
 ## Installation
 
