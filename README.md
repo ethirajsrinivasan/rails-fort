@@ -1,9 +1,8 @@
 # Rails::Fort
 
-[![Build Status](https://travis-ci.org/ethirajsrinivasan/rails-fort.svg?branch=master)](https://travis-ci.org/ethirajsrinivasan/rails-fort)
-[![Code Climate](https://codeclimate.com/github/ethirajsrinivasan/rails-fort/badges/gpa.svg)](https://codeclimate.com/github/ethirajsrinivasan/rails-fort)
-[![security](https://hakiri.io/github/ethirajsrinivasan/rails-fort/master.svg)](https://hakiri.io/github/ethirajsrinivasan/rails-fort/master)
+Modern progress bar for form completion
 
+## Information
 
  rails-fort gem gives you modern progress bar for form completion
 
