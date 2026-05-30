@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ethirajsrinivasan@gmail.com"]
 
   spec.summary       = "Modern progress bar for form completion"
-  spec.description   = "Modern progress bar for form completion"
+  spec.description   = "Rails-Fort provides a modern, animated progress bar for form completion tracking. It automatically detects form fields and displays visual progress as users fill out forms, with multiple customizable effect types including solid, gradient, sections, flash, and merge animations."
   spec.homepage      = "https://github.com/ethirajsrinivasan/rails-fort"
   spec.license       = "MIT"
 
@@ -18,6 +18,10 @@ Gem::Specification.new do |spec|
   # delete this section to allow pushing this gem to any host.
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['homepage_uri'] = spec.homepage
+    spec.metadata['changelog_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/blob/master/CHANGELOG.md"
+    spec.metadata['bug_tracker_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/issues"
+    spec.metadata['documentation_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/blob/master/README.md"
   else
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
@@ -26,8 +30,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.required_ruby_version = '>= 2.7'
-  spec.add_development_dependency "bundler", ">= 2.4"
-  spec.add_development_dependency "rake", ">= 13.0"
-  spec.add_development_dependency 'rspec', ">= 3.12"
+  spec.required_ruby_version = '>= 3.0'
+  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency 'rspec', "~> 3.12"
+  spec.add_runtime_dependency "railties", ">= 6.0", "< 9.0"
 end

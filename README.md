@@ -1,11 +1,14 @@
 # Rails::Fort
 
+[![Gem Version](https://badge.fury.io/rb/rails-fort.svg)](https://badge.fury.io/rb/rails-fort)
+[![CI](https://github.com/ethirajsrinivasan/rails-fort/workflows/CI/badge.svg)](https://github.com/ethirajsrinivasan/rails-fort/actions)
+
 Modern progress bar for form completion
 
 ## Requirements
 
-- Ruby >= 2.7
-- Rails >= 4.2
+- Ruby >= 3.0
+- Rails >= 6.0
 
 ## Information
 
@@ -27,9 +30,35 @@ Or install it yourself as:
 
     $ gem install rails-fort
 
-To use this gem add this require statement to your application.js file:
+### Asset Pipeline Setup
 
-	//= require rails_fort
+**For Rails 6.x / 7.x with Sprockets:**
+
+Add this require statement to your `application.js` file:
+
+```javascript
+//= require rails_fort
+```
+
+**For Rails 7+ with Import Maps:**
+
+Add to your `config/importmap.rb`:
+
+```ruby
+pin "rails_fort", to: "rails_fort.js"
+```
+
+Then import in your `application.js`:
+
+```javascript
+import "rails_fort"
+```
+
+**For Rails with Webpacker/Shakapacker:**
+
+The gem works with the asset pipeline. If using Webpacker, you may need to configure it to load from the gem's assets directory.
+
+**Note:** This gem requires jQuery. Make sure jQuery is loaded before rails_fort.
 
 ## Usage
 
@@ -83,6 +112,30 @@ Effects:
    		value: '#009DFF'
 
 effects can be added by changing type and value fields in fort.yml
+
+## Upgrading from 0.x to 1.0
+
+Version 1.0.0 introduces breaking changes to support modern Ruby and Rails versions:
+
+### Breaking Changes
+
+- **Ruby**: Minimum version increased from 2.7 to 3.0
+- **Rails**: Minimum version increased from 4.2 to 6.0
+
+### Migration Steps
+
+1. Ensure your application is running Ruby 3.0+ and Rails 6.0+
+2. Update your Gemfile: `gem 'rails-fort', '~> 1.0'`
+3. Run `bundle update rails-fort`
+4. If using Rails 7+ with Import Maps, follow the new installation instructions above
+5. Test your forms to ensure the progress bar still works as expected
+
+### Why These Changes?
+
+- Ruby 2.7 reached end-of-life in March 2023
+- Rails 4.2 reached end-of-life years ago
+- Modern versions provide better security, performance, and features
+- Ensures compatibility with current Rails asset pipeline approaches
 
 
 ## Contributing
