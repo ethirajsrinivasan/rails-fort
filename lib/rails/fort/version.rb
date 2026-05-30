@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Rails
   module Fort
-    VERSION = "0.1.6"
+    VERSION = "1.0.0"
   end
 end

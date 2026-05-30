@@ -1,0 +1,52 @@
+/*
+ * Rails-Fort progress bar styles
+ */
+
+.fort-bar,
+.top-one {
+  background: #009dff;
+  position: fixed;
+  z-index: 1031;
+  left: 0;
+  height: 4px;
+  width: 0;
+  overflow: hidden;
+  transition: width 1s ease, background 0.3s ease;
+  top: 0;
+  bottom: auto;
+}
+
+.fort-bar--secondary,
+.top-two {
+  background: #009dff;
+  position: fixed;
+  z-index: 1031;
+  right: 0;
+  left: auto;
+  transform: scaleX(-1);
+  height: 4px;
+  width: 0;
+  overflow: hidden;
+  transition: width 1s ease, background 0.3s ease;
+  top: 0;
+  bottom: auto;
+}
+
+.fort-bar--bottom,
+.top-one.fort-bar--bottom,
+.top-two.fort-bar--bottom {
+  top: auto;
+  bottom: 0;
+}
+
+.fort-bar__fill,
+.top-one .colors,
+.top-two .colors {
+  width: 100%;
+  height: 100%;
+}
+
+.fort-form,
+.form {
+  /* wrapper for forms; no extra layout rules required */
+}
