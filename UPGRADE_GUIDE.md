@@ -1,104 +1,62 @@
-# Upgrade Guide: Rails-Fort 0.x to 1.0
+# Upgrade Guide: Rails-Fort 0.x to 2.0.0
 
 ## Overview
 
-Rails-Fort 1.0 modernizes the gem to work with current Ruby and Rails versions. This guide will help you upgrade smoothly.
+Rails-Fort **2.0.0** is the first modern release on RubyGems. Version **1.0.0** was never published. This release combines Ruby/Rails modernization with a **rewritten JavaScript engine** while keeping the same `config/fort.yml` format.
 
 ## What Changed
 
-### Version Requirements
+### Ruby & Rails
 
-| Component | Old Version | New Version | Reason |
-|-----------|-------------|-------------|--------|
-| Ruby | >= 2.7 | >= 3.0 | Ruby 2.7 EOL (March 2023) |
-| Rails | >= 4.2 | >= 6.0 | Rails 4.2 EOL (2017-2019) |
+| Component | 0.x | 2.0.0 |
+|-----------|-----|-------|
+| Ruby | >= 2.7 (varied) | >= 3.0 |
+| Rails | >= 4.2 | >= 6.0 |
 
-### New Features
+### JavaScript
 
-- ✅ Support for Rails 6.x, 7.x, and 8.x
-- ✅ GitHub Actions CI workflow
-- ✅ Updated documentation for modern asset pipelines
-- ✅ Import Maps support documentation
-- ✅ Explicit railties dependency
+| Topic | 0.x | 2.0.0 |
+|-------|-----|-------|
+| jQuery | Required | **Not required** |
+| Implementation | Vendored legacy `fort.min.js` | New `fort.js` (`FortProgress`) |
+| CSS | Bundled minified vendor file | `*= require fort` in your stylesheet manifest |
+| DOM behavior | Rewrote `document.body` innerHTML | Inserts progress bar elements only |
+| Ignore class | `ignore` | `ignore` or `fort-ignore` |
+| Upstream repo | idriskhenchil/Fort.js (now 404) | Maintained in this gem |
 
-## Pre-Upgrade Checklist
+### Unchanged
 
-Before upgrading, ensure:
-
-- [ ] Your application runs Ruby 3.0 or higher
-- [ ] Your application runs Rails 6.0 or higher
-- [ ] You have a backup or version control
-- [ ] Your test suite passes
+- `config/fort.yml` keys: `height`, `duration`, `alignment`, `type`, `value`
+- Effect types: `solid`, `gradient`, `sections`, `flash`, `merge`
+- `//= require rails_fort` in `application.js`
 
 ## Upgrade Steps
 
-### 1. Update Your Gemfile
+### 1. Update Gemfile
 
 ```ruby
-# Old
-gem 'rails-fort'
-
-# New
-gem 'rails-fort', '~> 1.0'
+gem 'rails-fort', '~> 2.0'
 ```
-
-### 2. Install the Updated Gem
 
 ```bash
 bundle update rails-fort
 ```
 
-### 3. Update Asset Configuration (if needed)
+### 2. Add stylesheet (new in 2.0)
 
-#### For Sprockets (Rails 6.x / 7.x)
+In `app/assets/stylesheets/application.css` (or equivalent):
 
-No changes needed if you already have:
-
-```javascript
-//= require rails_fort
+```css
+*= require fort
 ```
 
-#### For Import Maps (Rails 7+)
+### 3. Remove jQuery requirement
 
-Add to `config/importmap.rb`:
+You no longer need jQuery for rails-fort. Remove any comment or load order that existed only for this gem.
 
-```ruby
-pin "rails_fort", to: "rails_fort.js"
-```
+### 4. Keep `config/fort.yml`
 
-Import in `application.js`:
-
-```javascript
-import "rails_fort"
-```
-
-### 4. Verify jQuery is Loaded
-
-Rails-Fort requires jQuery. Ensure it's loaded before rails_fort:
-
-**Sprockets:**
-```javascript
-//= require jquery
-//= require rails_fort
-```
-
-**Import Maps:**
-```ruby
-# config/importmap.rb
-pin "jquery", to: "https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
-pin "rails_fort", to: "rails_fort.js"
-```
-
-### 5. Test Your Forms
-
-1. Start your Rails server
-2. Navigate to pages with forms
-3. Verify the progress bar appears and updates correctly
-4. Test all form effect types if you use custom configurations
-
-## Configuration
-
-Your existing `config/fort.yml` configuration file continues to work without changes:
+Existing configuration should work as-is, for example:
 
 ```yaml
 height: '20px'
@@ -108,62 +66,42 @@ type: 'solid'
 value: '#009DFF'
 ```
 
+### 5. Test your forms
+
+1. Load a page with a form
+2. Confirm the progress bar appears (top or bottom per `alignment`)
+3. Fill fields and verify width/color effects
+4. Confirm fields with class `ignore` are skipped
+
 ## Troubleshooting
 
-### Progress Bar Not Appearing
+### Progress bar not visible
 
-**Issue**: The progress bar doesn't show up on forms.
+- Ensure **both** JS and CSS are included (`rails_fort` + `fort` stylesheet)
+- Check the browser console for errors
+- Verify `config/fort.yml` is valid YAML
 
-**Solutions**:
-1. Check browser console for JavaScript errors
-2. Verify jQuery is loaded before rails_fort
-3. Ensure the asset is properly included in your asset pipeline
-4. Check that forms are present on the page
+### Custom CSS targeting old markup
 
-### Asset Not Found
+2.0 still applies `.top-one` and `.top-two` on bar elements for compatibility. Prefer `.fort-bar` for new custom styles.
 
-**Issue**: `rails_fort.js` not found error.
+### Turbo / Turbolinks
 
-**Solutions**:
-1. Run `bundle exec rails assets:precompile` in production
-2. Restart your Rails server in development
-3. Clear your browser cache
-4. Verify the gem is properly installed: `bundle list | grep rails-fort`
+Re-initialize on page change if needed:
 
-### Import Maps Issues (Rails 7+)
-
-**Issue**: Module not found when using Import Maps.
-
-**Solutions**:
-1. Ensure you've added the pin to `config/importmap.rb`
-2. Run `bin/importmap pin rails_fort`
-3. Check that jQuery is also pinned and imported first
-
-## Rolling Back
-
-If you need to roll back to the previous version:
-
-```ruby
-# Gemfile
-gem 'rails-fort', '~> 0.2.0'
+```javascript
+document.addEventListener("turbo:load", function () {
+  if (window._railsFortInstance) {
+    window._railsFortInstance.destroy();
+    window._railsFortInstance = new FortProgress(/* your config */);
+    window._railsFortInstance.init();
+  }
+});
 ```
 
-Then run:
-```bash
-bundle update rails-fort
-```
-
-**Note**: Version 0.2.0 only supports Ruby 2.7 and Rails 4.2+, which are no longer maintained.
+For Sprockets-only apps, a full page load re-runs `rails_fort.js.erb` automatically.
 
 ## Getting Help
 
-- **Issues**: [GitHub Issues](https://github.com/ethirajsrinivasan/rails-fort/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/ethirajsrinivasan/rails-fort/discussions)
-- **Security**: Email ethirajsrinivasan@gmail.com for security concerns
-
-## Additional Resources
-
-- [CHANGELOG.md](CHANGELOG.md) - Detailed list of changes
-- [README.md](README.md) - Full documentation
-- [Ruby Upgrade Guide](https://www.ruby-lang.org/en/downloads/)
-- [Rails Upgrade Guide](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html)
+- [GitHub Issues](https://github.com/ethirajsrinivasan/rails-fort/issues)
+- [CHANGELOG.md](CHANGELOG.md)

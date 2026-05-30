@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Rails::Fort do
-  it "has a version number" do
-    expect(Rails::Fort::VERSION).not_to be_nil
+  it "has version 2.0.0" do
+    expect(Rails::Fort::VERSION).to eq "2.0.0"
   end
 
   it "defines a Rails engine" do

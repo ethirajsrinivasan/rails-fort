@@ -9,136 +9,130 @@ Modern progress bar for form completion
 
 - Ruby >= 3.0
 - Rails >= 6.0
-
-## Information
-
-rails-fort gem gives you modern progress bar for form completion
+- No jQuery required
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails-fort'
+gem 'rails-fort', '~> 2.0'
 ```
 
 And then execute:
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install rails-fort
+```bash
+bundle install
+```
 
 ### Asset Pipeline Setup
 
 **For Rails 6.x / 7.x with Sprockets:**
 
-Add this require statement to your `application.js` file:
+In `app/assets/javascripts/application.js`:
 
 ```javascript
 //= require rails_fort
 ```
 
+In `app/assets/stylesheets/application.css`:
+
+```css
+*= require fort
+```
+
 **For Rails 7+ with Import Maps:**
 
-Add to your `config/importmap.rb`:
+Add to `config/importmap.rb`:
 
 ```ruby
 pin "rails_fort", to: "rails_fort.js"
+pin "fort", to: "fort.js"
 ```
 
-Then import in your `application.js`:
+Import in `application.js`:
 
 ```javascript
 import "rails_fort"
 ```
 
-**For Rails with Webpacker/Shakapacker:**
-
-The gem works with the asset pipeline. If using Webpacker, you may need to configure it to load from the gem's assets directory.
-
-**Note:** This gem requires jQuery. Make sure jQuery is loaded before rails_fort.
+Include `fort.css` through your stylesheet pipeline or asset host.
 
 ## Usage
 
-rails-fort will automatically detect all `<input>` inside form
+Rails-Fort tracks `input`, `textarea`, and `select` fields inside forms and shows a fixed progress bar as the user completes the form.
 
-Certain fields:
+### Exclude fields
 
-If you want to exclude certain fields add a class named 'ignore' to the field. rails-fort will not detect the field after you do so.
+Add `ignore` or `fort-ignore` to skip a field:
 
-Example
+```html
+<input type="text" class="ignore">
+```
 
-		<input type="text" class='ignore'>
+### Configuration (`config/fort.yml`)
 
+```yaml
+height: '20px'
+duration: '3s'
+alignment: 'bottom'
+type: 'solid'
+value: '#009DFF'
+```
 
-You can also set default configuration in fort.yml under config folder, example
+### Effects
 
-	height: '20px'
-	duration: '3s'
-	alignment: 'bottom'
-	type: 'solid'
-	value: '#009DFF'
+**Solid**
 
+```yaml
+type: 'solid'
+value: '#009DFF'
+```
 
-Effects:
+**Gradient** (two colors)
 
-   * Solid
+```yaml
+type: 'gradient'
+value: ['#009DFF', '#47B9FF']
+```
 
-      	type: 'solid'
-     	value: '#009DFF'
+**Sections**
 
-   * Gradient
+```yaml
+type: 'sections'
+value: ['#009DFF', '#4AF2A1', '#FB5229']
+```
 
-	   	type: 'gradient'
-	   	value: ["#009DFF", "#47B9FF"]
+**Flash**
 
-	   	Note: Only two values can be passed
+```yaml
+type: 'flash'
+value: ['#009DFF', '#000', '#6638F0']
+```
 
-   * Sections
+**Merge**
 
-   		type: 'sections'
-   		value: ["#009DFF", "#4AF2A1", "#FB5229"]
+```yaml
+type: 'merge'
+value: '#009DFF'
+```
 
-   * Flash
+## Upgrading
 
-   		type: 'flash'
-   		value: ["#009DFF", "#000", "#6638F0"]
+- From **0.x** (legacy gem): see [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) for the **2.0.0** release.
+- Version **1.0.0** was never published to RubyGems; use **2.0.0** as the first modern release.
 
-   * Merge
+## JavaScript
 
-   		type: 'merge'
-   		value: '#009DFF'
-
-effects can be added by changing type and value fields in fort.yml
-
-## Upgrading from 0.x to 1.0
-
-Version 1.0.0 introduces breaking changes to support modern Ruby and Rails versions:
-
-### Breaking Changes
-
-- **Ruby**: Minimum version increased from 2.7 to 3.0
-- **Rails**: Minimum version increased from 4.2 to 6.0
-
-### Migration Steps
-
-1. Ensure your application is running Ruby 3.0+ and Rails 6.0+
-2. Update your Gemfile: `gem 'rails-fort', '~> 1.0'`
-3. Run `bundle update rails-fort`
-4. If using Rails 7+ with Import Maps, follow the new installation instructions above
-5. Test your forms to ensure the progress bar still works as expected
-
-See [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) for detailed migration instructions.
+The progress bar is implemented in vanilla JavaScript (`app/assets/javascripts/fort.js`) and vendored inside this gem. The original [Fort.js](https://github.com/idriskhenchil/Fort.js) repository by Idris Khenchil is no longer available; this gem maintains a compatible `fort.yml` API with a new implementation.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ethirajsrinivasan/rails-fort. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ethirajsrinivasan/rails-fort. Contributors are expected to adhere to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct.
 
 ## Thanks
 
-Thanks to [Idris Khenchil](https://github.com/idriskhenchil/Fort.js) for writing an awesome fort plugin.
+Thanks to Idris Khenchil for the original Fort.js form progress bar concept.
 
 ## License
 

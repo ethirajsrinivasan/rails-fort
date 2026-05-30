@@ -1,20 +1,29 @@
-$(document).ready(function(){
-  $("form").wrap( "<div class='form'></div>" );
-  <% path_to_file = "#{Rails.root}/config/fort.yml" %>
-  <% if File.exist?(path_to_file) %>
-    fortconfig = <%= JSON.dump(YAML.load_file(path_to_file)) %>;
-    if (fortconfig.type == null)
-        fortconfig.type = "solid"
-      if(fortconfig.value instanceof Array)
-        Fort[fortconfig.type].apply(this,fortconfig.value)
-      else
-        Fort[fortconfig.type](fortconfig.value)
-      Fort.config({
-        height: fortconfig.height,
-        duration: fortconfig.duration,
-        alignment: fortconfig.alignment
-      });
-  <% else %>
-    Fort.solid("#009DFF");
-  <% end %>
-});
+//= require fort
+
+(function () {
+  "use strict";
+
+  <% path_to_file = Rails.root.join("config/fort.yml").to_s %>
+  <% fortconfig = File.exist?(path_to_file) ? YAML.load_file(path_to_file) : { "type" => "solid", "value" => "#009DFF" } %>
+
+  var config = <%= JSON.dump(fortconfig) %>;
+
+  if (config.type == null) {
+    config.type = "solid";
+  }
+
+  function startFort() {
+    if (window._railsFortInstance) {
+      window._railsFortInstance.destroy();
+    }
+
+    window._railsFortInstance = new FortProgress(config);
+    window._railsFortInstance.init();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startFort);
+  } else {
+    startFort();
+  }
+})();

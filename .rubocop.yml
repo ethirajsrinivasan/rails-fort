@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'bin/**/*'
+    - 'app/assets/javascripts/fort.js'
 
 Style/Documentation:
   Enabled: false
