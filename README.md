@@ -1,7 +1,7 @@
 # Rails::Fort
 
+[![CI](https://github.com/ethirajsrinivasan/rails-fort/actions/workflows/ci.yml/badge.svg)](https://github.com/ethirajsrinivasan/rails-fort/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/rails-fort.svg)](https://badge.fury.io/rb/rails-fort)
-[![CI](https://github.com/ethirajsrinivasan/rails-fort/workflows/CI/badge.svg)](https://github.com/ethirajsrinivasan/rails-fort/actions)
 
 Modern progress bar for form completion
 
@@ -130,24 +130,16 @@ Version 1.0.0 introduces breaking changes to support modern Ruby and Rails versi
 4. If using Rails 7+ with Import Maps, follow the new installation instructions above
 5. Test your forms to ensure the progress bar still works as expected
 
-### Why These Changes?
-
-- Ruby 2.7 reached end-of-life in March 2023
-- Rails 4.2 reached end-of-life years ago
-- Modern versions provide better security, performance, and features
-- Ensures compatibility with current Rails asset pipeline approaches
-
+See [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) for detailed migration instructions.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ethirajsrinivasan/rails-fort. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ethirajsrinivasan/rails-fort. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct.
 
-##Thanks
+## Thanks
 
 Thanks to [Idris Khenchil](https://github.com/idriskhenchil/Fort.js) for writing an awesome fort plugin.
-
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

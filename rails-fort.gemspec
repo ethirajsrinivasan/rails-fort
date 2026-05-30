@@ -1,12 +1,11 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rails/fort/version'
+# frozen_string_literal: true
+
+require_relative "lib/rails/fort/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rails-fort"
   spec.version       = Rails::Fort::VERSION
-  spec.authors       = ["ethiraj"]
+  spec.authors       = ["ethi"]
   spec.email         = ["ethirajsrinivasan@gmail.com"]
 
   spec.summary       = "Modern progress bar for form completion"
@@ -14,25 +13,31 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/ethirajsrinivasan/rails-fort"
   spec.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "https://rubygems.org"
-    spec.metadata['homepage_uri'] = spec.homepage
-    spec.metadata['changelog_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/blob/master/CHANGELOG.md"
-    spec.metadata['bug_tracker_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/issues"
-    spec.metadata['documentation_uri'] = "https://github.com/ethirajsrinivasan/rails-fort/blob/master/README.md"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
+  spec.metadata = {
+    "allowed_push_host" => "https://rubygems.org",
+    "homepage_uri" => spec.homepage,
+    "source_code_uri" => "https://github.com/ethirajsrinivasan/rails-fort",
+    "bug_tracker_uri" => "https://github.com/ethirajsrinivasan/rails-fort/issues",
+    "changelog_uri" => "https://github.com/ethirajsrinivasan/rails-fort/blob/master/CHANGELOG.md",
+    "documentation_uri" => "https://github.com/ethirajsrinivasan/rails-fort/blob/master/README.md",
+    "rubygems_mfa_required" => "true"
+  }
+
+  spec.files = Dir.chdir(__dir__) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.required_ruby_version = '>= 3.0'
-  spec.add_development_dependency "bundler", "~> 2.4"
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency 'rspec', "~> 3.12"
+
+  spec.required_ruby_version = ">= 3.0"
+
   spec.add_runtime_dependency "railties", ">= 6.0", "< 9.0"
+
+  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "bundler-audit", "~> 0.9"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.12"
+  spec.add_development_dependency "rubocop", "~> 1.50"
 end
