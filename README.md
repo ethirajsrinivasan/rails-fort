@@ -16,7 +16,7 @@ Modern progress bar for form completion
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails-fort', '~> 2.0'
+gem 'rails-fort', '~> 1.0'
 ```
 
 And then execute:
@@ -119,8 +119,7 @@ value: '#009DFF'
 
 ## Upgrading
 
-- From **0.x** (legacy gem): see [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) for the **2.0.0** release.
-- Version **1.0.0** was never published to RubyGems; use **2.0.0** as the first modern release.
+Upgrading from the legacy **0.x** gem? See [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md) for **1.0.0**.
 
 ## JavaScript
 

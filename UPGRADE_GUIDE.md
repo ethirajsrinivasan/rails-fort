@@ -1,21 +1,21 @@
-# Upgrade Guide: Rails-Fort 0.x to 2.0.0
+# Upgrade Guide: Rails-Fort 0.x to 1.0.0
 
 ## Overview
 
-Rails-Fort **2.0.0** is the first modern release on RubyGems. Version **1.0.0** was never published. This release combines Ruby/Rails modernization with a **rewritten JavaScript engine** while keeping the same `config/fort.yml` format.
+Rails-Fort **1.0.0** is the first modern release on RubyGems. It combines Ruby/Rails modernization (Ruby 3.0+, Rails 6.0+) with a **rewritten JavaScript engine** while keeping the same `config/fort.yml` format.
 
 ## What Changed
 
 ### Ruby & Rails
 
-| Component | 0.x | 2.0.0 |
+| Component | 0.x | 1.0.0 |
 |-----------|-----|-------|
 | Ruby | >= 2.7 (varied) | >= 3.0 |
 | Rails | >= 4.2 | >= 6.0 |
 
 ### JavaScript
 
-| Topic | 0.x | 2.0.0 |
+| Topic | 0.x | 1.0.0 |
 |-------|-----|-------|
 | jQuery | Required | **Not required** |
 | Implementation | Vendored legacy `fort.min.js` | New `fort.js` (`FortProgress`) |
@@ -35,14 +35,14 @@ Rails-Fort **2.0.0** is the first modern release on RubyGems. Version **1.0.0** 
 ### 1. Update Gemfile
 
 ```ruby
-gem 'rails-fort', '~> 2.0'
+gem 'rails-fort', '~> 1.0'
 ```
 
 ```bash
 bundle update rails-fort
 ```
 
-### 2. Add stylesheet (new in 2.0)
+### 2. Add stylesheet (new in 1.0)
 
 In `app/assets/stylesheets/application.css` (or equivalent):
 
@@ -52,7 +52,7 @@ In `app/assets/stylesheets/application.css` (or equivalent):
 
 ### 3. Remove jQuery requirement
 
-You no longer need jQuery for rails-fort. Remove any comment or load order that existed only for this gem.
+You no longer need jQuery for rails-fort. Remove any load order that existed only for this gem.
 
 ### 4. Keep `config/fort.yml`
 
@@ -83,7 +83,7 @@ value: '#009DFF'
 
 ### Custom CSS targeting old markup
 
-2.0 still applies `.top-one` and `.top-two` on bar elements for compatibility. Prefer `.fort-bar` for new custom styles.
+1.0 still applies `.top-one` and `.top-two` on bar elements for compatibility. Prefer `.fort-bar` for new custom styles.
 
 ### Turbo / Turbolinks
 

@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.0] - 2026-05-30
+## [1.0.0] - 2026-05-30
 
-First published modern release (1.0.0 was never released to RubyGems).
+First modern release on RubyGems.
 
 ### Added
 
@@ -32,7 +32,6 @@ First published modern release (1.0.0 was never released to RubyGems).
 ### Notes
 
 - Original upstream Fort.js GitHub repository is unavailable; JS is maintained in this gem
-- cdnjs Fort.js 2.0.0 (2016) uses a different API and is not used
 
 ## [0.2.0] - Previous Release
 
